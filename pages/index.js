@@ -13,7 +13,7 @@ function min(a, b){
     return (a < b) ? a : b;
 }
 
-function homePage(){
+function HomePage(){
     const [time, setTime] = useState(0);//time in seconds if timer running
     const [running, setRunning] = useState(false);//whether timer running
     const [text, setText] = useState('');//text inside the input box
@@ -103,4 +103,4 @@ function homePage(){
     );
 }
 
-export default homePage;
+export default HomePage;
