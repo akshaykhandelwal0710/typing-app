@@ -1,9 +1,5 @@
 import React from "react";
 
-function min(a, b){
-    return (a < b) ? a : b;
-}
-
 class TextArea extends React.Component{
     constructor(props){
         super(props);
@@ -11,6 +7,7 @@ class TextArea extends React.Component{
 
     render(){
         var spans = [];
+        var min = (a, b) => a < b ? a : b;
         const myclass = (this.props.firstTime) ? "randomClass" : "greenText";
         if (this.props.disabled){
             var cur = 0;

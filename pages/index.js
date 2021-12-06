@@ -8,10 +8,7 @@ const maxlen = 30;//Maximum length of word that can be entered in input box
 var para = "Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use of data.";
 para = para.split(' ');
 const numWords = para.length;
-
-function min(a, b){
-    return (a < b) ? a : b;
-}
+var min = (a, b) => a < b ? a : b;
 
 function HomePage(){
     const [time, setTime] = useState(0);//time in seconds if timer running
