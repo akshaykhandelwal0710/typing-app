@@ -71,9 +71,7 @@ function HomePage(){
             if (target.value.length - 1 != para[currentWord].length || newMatch != para[currentWord].length){
                 setIncorrectWords((prev) => [...prev, currentWord]);
             }
-            else{
-                setCorrectChars((prev) => prev + para[currentWord].length);
-            }
+            setCorrectChars((prev) => prev + newMatch);
             if (currentWord == numWords - 1){
                 setRunning(false);
             }
