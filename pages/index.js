@@ -73,6 +73,11 @@ function HomePage(){
             if (myBool){
                 setIncorrectWords((prev) => [...prev, currentWord]);
             }
+            
+            const correct = 0;
+            for (var i = 0; i < min(target.value.length, para[currentWord].length); i++){
+                correct += (target.value[i] == para[currentWord][i]);
+            }
             setCorrectChars((prev) => prev + newMatch + !myBool);
             if (currentWord == numWords - 1){
                 setRunning(false);
