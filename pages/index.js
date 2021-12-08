@@ -5,7 +5,8 @@ import TextArea from "../components/textArea";
 
 const maxlen = 30;//Maximum length of word that can be entered in input box
 
-var para = "Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use of data. It is seen as a part of artificial intelligence. Machine learning algorithms build a model based on sample data, known as training data, in order to make predictions or decisions without being explicitly programmed to do so. Machine learning algorithms are used in a wide variety of applications, such as in medicine, email filtering, speech recognition, and computer vision, where it is difficult or unfeasible to develop conventional algorithms to perform the needed tasks.";
+var para = "Machine learning (ML) is the study of computer algorithms that can improve automatically through experience and by the use of data.";
+const total = para.length + 1;
 para = para.split(' ');
 const numWords = para.length;
 var min = (a, b) => a < b ? a : b;
@@ -17,7 +18,7 @@ function HomePage(){
     const inputRef = useRef(null);//reference to the inputBox
     const [currentWord, setCurrentWord] = useState(0);//current word index in the para
     const [numOfCharsEntered, setNumOfCharsEntered] = useState(0);//number of characters entered
-    const [correctChars, setCorrectChars] = useState(0)//Number of characters entered(only from correctly entered words)
+    const [correctChars, setCorrectChars] = useState(0)//Number of characters entered correctly
     const [match, setMatch] = useState(0);//number of matching characters with the current word
     const [incorrectWords, setIncorrectWords] = useState([]);//list of indices of words entered incorrectly
     const [firstTime, setFirstTime] = useState(true);//whether it is the first time user will start a test in the current session
@@ -68,14 +69,15 @@ function HomePage(){
             newMatch++;
         }
         if (target.value[target.value.length - 1] == ' '){
-            if (target.value.length - 1 != para[currentWord].length || newMatch != para[currentWord].length){
+            const myBool = target.value.length - 1 != para[currentWord].length || newMatch != para[currentWord].length;
+            if (myBool){
                 setIncorrectWords((prev) => [...prev, currentWord]);
             }
-            setCorrectChars((prev) => prev + newMatch);
+            setCorrectChars((prev) => prev + newMatch + !myBool);
             if (currentWord == numWords - 1){
                 setRunning(false);
             }
-            setNumOfCharsEntered((prev) => prev + target.value.length - 1);
+            setNumOfCharsEntered((prev) => prev + target.value.length);
             setCurrentWord((prev) => prev + 1);
             setMatch(0);
             setText('');
@@ -93,7 +95,7 @@ function HomePage(){
             <button onClick = {handleClick}>Start</button>
             <TextArea content = {para} disabled = {!running} currentWord = {currentWord} match = {match} totLen = {text.length} incorrectWords = {incorrectWords} firstTime = {firstTime}></TextArea>
             <InputBox rf = {inputRef} value = {text} onChange = {handleChange} disabled = {!running}></InputBox>
-            {(!running && !firstTime) ? <AnalysisBox numChars = {numOfCharsEntered} time = {time} correctChars = {correctChars} incorrectCount = {incorrectWords.length} totalCount = {numWords}/> : <div></div>}
+            {(!running && !firstTime) ? <AnalysisBox numChars = {numOfCharsEntered} time = {time} correctCount = {correctChars} totalCount = {total}/> : <div></div>}
         </div>
     );
 }
